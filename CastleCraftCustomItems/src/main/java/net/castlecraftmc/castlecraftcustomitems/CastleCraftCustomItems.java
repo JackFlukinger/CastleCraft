@@ -21,6 +21,8 @@ public class CastleCraftCustomItems extends JavaPlugin implements Listener {
     private static List<String> loreFormat = new ArrayList<String>();
     private static List<String> types = new ArrayList<String>();
     private static HashMap<String,List<String>> prefixes = new HashMap<String,List<String>>();
+    private static HashMap<String,List<String>> baseNames = new HashMap<String,List<String>>();
+    private static HashMap<String,List<String>> suffixes = new HashMap<String,List<String>>();
     private static String baseXP = new String();
 	private static Plugin plugin;
 
@@ -36,12 +38,12 @@ public class CastleCraftCustomItems extends JavaPlugin implements Listener {
 		}
 		//Add default lore to lore array
 		for (String loreEntry : getConfig().getStringList("LoreFormat")) {
-			loreEntry = loreEntry.replace("&", "ง");
+			loreEntry = loreEntry.replace("&", "ยง");
 			loreFormat.add(loreEntry);
 		}
 		//Get type list and make get-able from array
 		for (String type : getConfig().getStringList("Types")) {
-			type = type.replace("&", "ง");
+			type = type.replace("&", "ยง");
 			types.add(type);
 		}
 		//Get prefixes for each weapon/tool
@@ -57,6 +59,35 @@ public class CastleCraftCustomItems extends JavaPlugin implements Listener {
 			//After looping through the prefixes and adding them to the list, put that in the hashmap with the key "item type"
 			prefixes.put(ItemType, prefixesPerItemType);
 		}
+		
+		//Get base names for each weapon/tool
+		for (String key : getConfig().getConfigurationSection("NameBases").getKeys(false)) {
+			//Make the item type the key in the hashmap "baseNames"
+			String ItemType = key;
+			//Make base names per item the list of prefixes stored in "baseNames"
+			List<String> baseNamesPerItemType = new ArrayList<String>();
+			//Loop through all the base names for each item type and add them to the list "baseNamesPerItem"
+			for (String baseName : getConfig().getStringList("NameBases." + key)) {
+				baseNamesPerItemType.add(baseName);
+			}
+			//After looping through the base names and adding them to the list, put that in the hashmap with the key "item type"
+			baseNames.put(ItemType, baseNamesPerItemType);
+		}
+		
+		//Get suffixes for each weapon/tool
+		for (String key : getConfig().getConfigurationSection("NameSuffixes").getKeys(false)) {
+			//Make the item type the key in the hashmap "suffixes"
+			String ItemType = key;
+			//Make suffixes per item the list of prefixes stored in "suffixes"
+			List<String> suffixesPerItemType = new ArrayList<String>();
+			//Loop through all the suffixes for each item type and add them to the list "suffixesPerItemType"
+			for (String suffix : getConfig().getStringList("NameSuffixes." + key)) {
+				suffixesPerItemType.add(suffix);
+			}
+			//After looping through the suffixes and adding them to the list, put that in the hashmap with the key "item type"
+			suffixes.put(ItemType, suffixesPerItemType);
+		}
+		
 		baseXP = getConfig().getString("BaseXP");
 	}
 
@@ -89,7 +120,7 @@ public class CastleCraftCustomItems extends JavaPlugin implements Listener {
 			}
 			//If line contains <level>, replace it with 1, because all items start at level 1
 			if (line.contains("<level>")) {
-				line = line.replace("<level>", "ง31");
+				line = line.replace("<level>", "ยง31");
 			}
 			//If line contains <currentXP>, replace it with 0, because that's what all items start at
 			if (line.contains("<currentXP>")) {
@@ -105,12 +136,19 @@ public class CastleCraftCustomItems extends JavaPlugin implements Listener {
 		return newLore;
 	}
 	public static String getNameVariant(ItemStack item) {
-		//Check if should rename
+		//Check if should rename (if does not have display name already)
 		if (item.hasItemMeta() && item.getItemMeta().hasDisplayName()) {
 			return item.getItemMeta().getDisplayName();
 		} else {
 			String itemKey = item.getType().toString();
 			List<String> possiblePrefixes = prefixes.get(itemKey);
+			List<String> possibleBaseNames = baseNames.get(itemKey);
+			List<String> possibleSuffixes = suffixes.get(itemKey);
+			//Chooses random value of each
+			String prefix = possiblePrefixes.get((int) (Math.random() * (possiblePrefixes.size())));
+			String baseName = possibleBaseNames.get((int) (Math.random() * (possibleBaseNames.size())));
+			String suffix = possibleSuffixes.get((int) (Math.random() * (possibleSuffixes.size())));
+			return "ยงf" + prefix + " " + baseName + " " + suffix;
 		}
 	}
 	public void onDisable() {
