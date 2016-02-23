@@ -1,0 +1,26 @@
+BaseXP: 100
+
+Types:
+- '&2Unsung'
+- '&aProminent'
+- '&eCelebrated'
+- '&6Fabled'
+- '&dLegendary'
+- '&5Mythical'
+
+ItemsToAffect:
+- DIAMOND_SWORD
+
+LoreFormat:
+- <type>
+- "&aLevel: &3<level> &4| &aEXP: &3<currentXP>&a/&3<maxXP>"
+- <modifier>
+NameFormat: <nameVariant>
+
+NamePrefixes:
+  DIAMOND_SWORD:
+  - Great
+  - Brilliant
+  - Shining
+  - Heroic
+  - Epic
