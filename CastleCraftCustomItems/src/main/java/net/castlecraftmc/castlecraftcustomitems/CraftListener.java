@@ -24,6 +24,7 @@ public class CraftListener implements Listener {
 					ItemMeta meta = item.getItemMeta();
 					List<String> lore = CastleCraftCustomItems.getLoreFormat(item);
 					meta.setLore(lore);
+					meta.setDisplayName(CastleCraftCustomItems.getNameVariant(item));
 					item.setItemMeta(meta);
 					e.setCurrentItem(item);
 				}
