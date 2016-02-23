@@ -1,0 +1,17 @@
+name: ClassAbilities
+main: net.castlecraftmc.classabilities.ClassAbilities
+version: 0.0.1
+depend: [EffectLib, LibsDisguises, Vault, Towny]
+website: castlecraftmc.net
+author: Frozen_Thunder
+commands:
+   tr:
+      description: Use this command to request to join a town!
+      usage: /tr
+      permission: classabilities.requesttown
+      permission-message: You do not have permission to use this command!
+   syncgroups:
+      description: Sync forum groups with online player groups!
+      usage: /syncgroups
+      permission: classabilities.syncgroups
+      permission-message: You do not have permission to use this command!
