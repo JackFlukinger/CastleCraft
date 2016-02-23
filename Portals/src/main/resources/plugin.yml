@@ -1,0 +1,12 @@
+name: Portals
+main: net.castlecraftmc.portals.Portals
+version: 0.0.1
+depend: [WorldGuard]
+website: castlecraftmc.net
+author: Frozen_Thunder
+commands:
+   portals:
+      description: Use this command to request to join a town!
+      usage: /portals [create/delete] [portal name]
+      permission: classabilities.requesttown
+      permission-message: You do not have permission to use this command!
