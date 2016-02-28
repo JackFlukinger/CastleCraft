@@ -104,15 +104,19 @@ public class CastleCraftCustomItems extends JavaPlugin implements Listener {
 	//Used when the plugin needs to edit the lore of an item
 	public static List<String> getLoreFormat(ItemStack item) {
 		List<String> lore;
-		if (item.hasItemMeta() && item.getItemMeta().hasLore()) {
-			lore = new ArrayList<String>(loreFormat);
-			lore.addAll(item.getItemMeta().getLore());
+		if (item.hasItemMeta() && (item.getItemMeta().hasLore())) {
+			if (item.getItemMeta().getLore().size() > 2 && item.getItemMeta().getLore().get(item.getItemMeta().getLore().size() - 2).startsWith("§aLevel:")) {
+				return item.getItemMeta().getLore();
+			} else {
+				lore = new ArrayList<String>(item.getItemMeta().getLore());
+				lore.addAll(loreFormat);
+			}
 		} else {
 			lore = loreFormat;
 		}
-		//If item doesn't have lore, then just make the lore with CastleCraftCustomItem-related stuff, no need to get current lore and add unneeded stuff 
+
 		List<String> newLore = new ArrayList<String>();
-		//Counter for line replacement stuffs
+
 		for (String line : lore) {
 			//If line contains <type>, replace it with Common, because all items start at Common
 			if (line.contains("<type>")) {
@@ -130,9 +134,9 @@ public class CastleCraftCustomItems extends JavaPlugin implements Listener {
 			if (line.contains("<maxXP>")) {
 				line = line.replace("<maxXP>", baseXP);
 			}
-			Bukkit.broadcastMessage("Line 1: " + line);
 			newLore.add(line);
 		}
+		Bukkit.broadcastMessage("New Lore: " + newLore);
 		return newLore;
 	}
 	public static String getNameVariant(ItemStack item) {
