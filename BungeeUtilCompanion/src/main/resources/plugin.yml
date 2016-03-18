@@ -1,0 +1,16 @@
+name: BungeeUtilCompanion
+main: net.castlecraftmc.bungeeutilcompanion.BungeeUtilCompanion
+version: 0.0.1
+author: Frozen_Thunder
+website: http://castlecraftmc.net
+depend: [PlaceholderAPI]
+commands:
+  setspawn:
+    permission: bungeeutil.get
+    permission-message: You don't have the bungeeutil.setspawn permission required to use this command!
+  spawn:
+    permission: bungeeutil.spawn
+    permission-message: You don't have the bungeeutil.spawn permission required to use this command!
+  delspawn:
+    permission: bungeeutil.delspawn
+    permission-message: You don't have the bungeeutil.delspawn permission required to use this command!

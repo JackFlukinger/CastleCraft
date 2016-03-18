@@ -1,0 +1,26 @@
+Spawn:
+  Server:
+  World:
+  X:
+  Y:
+  Z:
+WhoOrder:
+- Owner
+- Overseer
+- Moderator
+- Helper
+- Titan
+- God
+- Demigod
+- King
+- Lord
+- Knight
+- Peasant
+- Soulless
+MySQL:
+  Host: 127.0.0.1
+  Port: 3306
+  Database: bungeeutil
+  Username: root
+  Password: 5E43BC7CC38FC4FF850A6B0CCA2B0E6C5418D819
+ServerName: main
