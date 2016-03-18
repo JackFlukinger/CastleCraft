@@ -24,6 +24,7 @@
           <id>placeholderapi</id>
           <url>http://repo.extendedclip.com/content/repositories/placeholderapi/</url>
       </repository>
+
   </repositories>
   <dependencies>
       <dependency>
@@ -43,6 +44,13 @@
           <artifactId>placeholderapi</artifactId>
           <version>2.0.8</version>
           <scope>provided</scope>
+      </dependency>
+      <dependency>
+          <groupId>me.redepicness</groupId>
+          <artifactId>SocketMessengerBukkit</artifactId>
+          <version>1.0.0</version>
+          <scope>system</scope>
+          <systemPath>${project.basedir}/lib/SocketMessengerBukkit.jar</systemPath>
       </dependency>
   </dependencies>
 </project>

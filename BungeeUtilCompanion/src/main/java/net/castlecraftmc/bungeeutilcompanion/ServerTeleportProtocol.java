@@ -5,6 +5,9 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 
+import me.redepicness.socketmessenger.api.Data;
+import me.redepicness.socketmessenger.bukkit.SocketAPI;
+
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -22,7 +25,7 @@ public class ServerTeleportProtocol {
 	}
 	
 	public static void sendPreTeleportInfo(Player p, String server, String location) {
-		ByteArrayDataOutput out = ByteStreams.newDataOutput();
+		/*ByteArrayDataOutput out = ByteStreams.newDataOutput();
 		out.writeUTF("Forward"); // So BungeeCord knows to forward it
 		out.writeUTF(server);
 		out.writeUTF("TeleportProtocol"); // The channel name to check if this your data
@@ -39,6 +42,12 @@ public class ServerTeleportProtocol {
 		out.writeShort(msgbytes.toByteArray().length);
 		out.write(msgbytes.toByteArray());
 		p.sendPluginMessage(BungeeUtilCompanion.getPlugin(), "BungeeCord", out.toByteArray());
+		*/
+		Data message = new Data();
+		message.addString("server", server);
+		message.addString("player", p.getName());
+		message.addString("location", location);
+		SocketAPI.sendDataToServer("TeleportProtocol", message);
 	}
 	
 	public static void callTeleport(Player p, String server) {

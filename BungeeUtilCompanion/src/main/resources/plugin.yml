@@ -3,7 +3,7 @@ main: net.castlecraftmc.bungeeutilcompanion.BungeeUtilCompanion
 version: 0.0.1
 author: Frozen_Thunder
 website: http://castlecraftmc.net
-depend: [PlaceholderAPI]
+depend: [PlaceholderAPI, SocketMessenger]
 commands:
   setspawn:
     permission: bungeeutil.get
@@ -14,3 +14,12 @@ commands:
   delspawn:
     permission: bungeeutil.delspawn
     permission-message: You don't have the bungeeutil.delspawn permission required to use this command!
+  warp:
+    permission: bungeeutil.warp
+    permission-message: You don't have the bungeeutil.warp permission required to use this command!
+  delwarp:
+    permission: bungeeutil.delwarp
+    permission-message: You don't have the bungeeutil.delwarp permission required to use this command!
+  setwarp:
+    permission: bungeeutil.setwarp
+    permission-message: You don't have the bungeeutil.setwarp permission required to use this command!
