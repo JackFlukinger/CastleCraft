@@ -23,3 +23,21 @@ commands:
   setwarp:
     permission: bungeeutil.setwarp
     permission-message: You don't have the bungeeutil.setwarp permission required to use this command!
+  back:
+    permission: bungeeutil.back
+    permission-message: You don't have the bungeeutil.back permission required to use this command!
+  tpa:
+    permission: bungeeutil.tpa
+    permission-message: You don't have the bungeeutil.tpa permission required to use this command!
+  tpahere:
+    permission: bungeeutil.tpahere
+    permission-message: You don't have the bungeeutil.tpahere permission required to use this command!
+  tp:
+    permission: bungeeutil.tp
+    permission-message: You don't have the bungeeutil.tp permission required to use this command!
+  tphere:
+    permission: bungeeutil.tphere
+    permission-message: You don't have the bungeeutil.tphere permission required to use this command!
+  tpaccept:
+    permission: bungeeutil.tpaccept
+    permission-message: You don't have the bungeeutil.tpaccept permission required to use this command!

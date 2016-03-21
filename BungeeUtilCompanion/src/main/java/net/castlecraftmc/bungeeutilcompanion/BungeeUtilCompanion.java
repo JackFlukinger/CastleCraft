@@ -9,15 +9,24 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import net.castlecraftmc.backhandlers.BackCommand;
+import net.castlecraftmc.backhandlers.BackFunctions;
 import net.castlecraftmc.spawnhandlers.SetSpawnCommands;
 import net.castlecraftmc.spawnhandlers.SpawnCommand;
 import net.castlecraftmc.spawnhandlers.SpawnFunctions;
 import net.castlecraftmc.spawnhandlers.SpawnsListener;
 import net.castlecraftmc.sql.MySQL;
+import net.castlecraftmc.tphandlers.TPCommand;
+import net.castlecraftmc.tphandlers.TPListener;
+import net.castlecraftmc.warphandlers.SetWarpCommands;
+import net.castlecraftmc.warphandlers.WarpCommand;
+import net.castlecraftmc.warphandlers.WarpFunctions;
+import net.castlecraftmc.warphandlers.WarpsListener;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.PluginCommand;
@@ -26,17 +35,13 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import warphandlers.SetWarpCommands;
-import warphandlers.WarpCommand;
-import warphandlers.WarpFunctions;
-import warphandlers.WarpsListener;
-
 public class BungeeUtilCompanion extends JavaPlugin implements Listener {
 	private static String serverName = new String();
 	private static BungeeUtilCompanion instance;
 	public static HashMap<String,String> MysqlInfo = new HashMap<String,String>();
 	public static HashMap<String, Map<String,String>> spawnCache = new HashMap<String, Map<String,String>>();
 	public static HashMap<String, Map<String,String>> warpCache = new HashMap<String, Map<String,String>>();
+	public static HashMap<String,String> playerList = new HashMap<String,String>();
 	private static Plugin plugin;
 	public static Connection c;
 	PluginManager pm;
@@ -55,6 +60,7 @@ public class BungeeUtilCompanion extends JavaPlugin implements Listener {
 		c = SQL.open();
 		SpawnFunctions.createSpawnTable();
 		WarpFunctions.createWarpTable();
+		BackFunctions.createBackTable();
 		loadSpawns();
 		loadWarps();
     }
@@ -76,6 +82,8 @@ public class BungeeUtilCompanion extends JavaPlugin implements Listener {
     	pm.registerEvents(new ServerTeleportListener(), this);
     	pm.registerEvents(new SpawnsListener(), this);
     	pm.registerEvents(new WarpsListener(), this);
+    	pm.registerEvents(new GetPlayerList(), this);
+    	pm.registerEvents(new TPListener(), this);
 
     }
    
@@ -86,7 +94,12 @@ public class BungeeUtilCompanion extends JavaPlugin implements Listener {
     	getCommand("warp").setExecutor(new WarpCommand());
     	getCommand("setwarp").setExecutor(new SetWarpCommands());
     	getCommand("delwarp").setExecutor(new SetWarpCommands());
-
+    	getCommand("back").setExecutor(new BackCommand());
+    	getCommand("tpa").setExecutor(new TPCommand());
+    	getCommand("tpahere").setExecutor(new TPCommand());
+    	getCommand("tp").setExecutor(new TPCommand());
+    	getCommand("tphere").setExecutor(new TPCommand());
+    	getCommand("tpaccept").setExecutor(new TPCommand());
     }
     
     private void loadConfig() {

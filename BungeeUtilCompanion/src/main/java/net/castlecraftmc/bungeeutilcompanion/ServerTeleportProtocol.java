@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 import me.redepicness.socketmessenger.api.Data;
 import me.redepicness.socketmessenger.bukkit.SocketAPI;
+import net.castlecraftmc.backhandlers.BackFunctions;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -20,29 +21,12 @@ import com.google.common.io.ByteStreams;
 public class ServerTeleportProtocol {
 	
 	public static void teleportPlayer(Player p, String server, String location) {
+		BackFunctions.setBack(p.getName(), BungeeUtilCompanion.getServerName(), p.getWorld().getName(), p.getLocation().getX(), p.getLocation().getY(), p.getLocation().getZ(), p.getLocation().getYaw(), p.getLocation().getPitch());
 		sendPreTeleportInfo(p, server, location);
 		callTeleport(p, server);
 	}
 	
 	public static void sendPreTeleportInfo(Player p, String server, String location) {
-		/*ByteArrayDataOutput out = ByteStreams.newDataOutput();
-		out.writeUTF("Forward"); // So BungeeCord knows to forward it
-		out.writeUTF(server);
-		out.writeUTF("TeleportProtocol"); // The channel name to check if this your data
-
-		ByteArrayOutputStream msgbytes = new ByteArrayOutputStream();
-		DataOutputStream msgout = new DataOutputStream(msgbytes);
-		try {
-			msgout.writeUTF(location);
-			msgout.writeUTF(p.getName());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		out.writeShort(msgbytes.toByteArray().length);
-		out.write(msgbytes.toByteArray());
-		p.sendPluginMessage(BungeeUtilCompanion.getPlugin(), "BungeeCord", out.toByteArray());
-		*/
 		Data message = new Data();
 		message.addString("server", server);
 		message.addString("player", p.getName());

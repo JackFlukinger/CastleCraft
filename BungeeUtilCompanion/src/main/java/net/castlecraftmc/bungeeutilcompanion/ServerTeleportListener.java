@@ -42,18 +42,11 @@ public class ServerTeleportListener implements Listener {
 			final double z = Double.parseDouble(playersToTeleport.get(p.getName()).split(",")[3]);
 			final Float yaw = Float.parseFloat(playersToTeleport.get(p.getName()).split(",")[4]);
 			final Float pitch = Float.parseFloat(playersToTeleport.get(p.getName()).split(",")[5]);
-			/*new BukkitRunnable() {
-
-				public void run() {*/
-					Location locToTeleportTo = new Location(world, x, y, z);
-					locToTeleportTo.setYaw(yaw);
-					locToTeleportTo.setPitch(pitch);
-					p.teleport(locToTeleportTo);
-					p.sendMessage("§6Teleporting...");
-			/*	}
-
-			}.runTaskLater(BungeeUtilCompanion.getPlugin(), 2);
-			*/
+			Location locToTeleportTo = new Location(world, x, y, z);
+			locToTeleportTo.setYaw(yaw);
+			locToTeleportTo.setPitch(pitch);
+			p.teleport(locToTeleportTo);
+			p.sendMessage("§6Teleporting...");
 			playersToTeleport.remove(p.getName());
 		}
 	}
