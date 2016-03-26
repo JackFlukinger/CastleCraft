@@ -46,7 +46,7 @@ public class TPCommand implements CommandExecutor {
 				String playerToTeleportServer = BungeeUtilCompanion.playerList.get(playerToTeleport);
 				String serverToTeleportTo = BungeeUtilCompanion.playerList.get(playerToTeleportTo);
 				if (playerToTeleportServer.equals(serverToTeleportTo)) {
-					BackFunctions.setBack(Bukkit.getPlayer(playerToTeleport).getName(), BungeeUtilCompanion.getServerName(), Bukkit.getPlayer(playerToTeleport).getWorld().getName(), Bukkit.getPlayer(playerToTeleport).getLocation().getX(), Bukkit.getPlayer(playerToTeleport).getLocation().getY(), Bukkit.getPlayer(playerToTeleport).getLocation().getZ(), Bukkit.getPlayer(playerToTeleport).getLocation().getYaw(), Bukkit.getPlayer(playerToTeleport).getLocation().getPitch());
+					BackFunctions.setBack(Bukkit.getPlayer(playerToTeleport).getUniqueId().toString(), BungeeUtilCompanion.getServerName(), Bukkit.getPlayer(playerToTeleport).getWorld().getName(), Bukkit.getPlayer(playerToTeleport).getLocation().getX(), Bukkit.getPlayer(playerToTeleport).getLocation().getY(), Bukkit.getPlayer(playerToTeleport).getLocation().getZ(), Bukkit.getPlayer(playerToTeleport).getLocation().getYaw(), Bukkit.getPlayer(playerToTeleport).getLocation().getPitch());
 					Bukkit.getPlayer(playerToTeleport).teleport(Bukkit.getPlayer(playerToTeleportTo));
 					TPFunctions.removeTPRequest(playerToTeleportTo);
 				} else {
@@ -65,7 +65,7 @@ public class TPCommand implements CommandExecutor {
 					String playerToTeleportServer = BungeeUtilCompanion.getServerName();
 					String serverToTeleportTo = BungeeUtilCompanion.playerList.get(playerToTeleportTo);
 					if (playerToTeleportServer.equals(serverToTeleportTo)) {
-						BackFunctions.setBack(Bukkit.getPlayer(playerToTeleport).getName(), BungeeUtilCompanion.getServerName(), Bukkit.getPlayer(playerToTeleport).getWorld().getName(), Bukkit.getPlayer(playerToTeleport).getLocation().getX(), Bukkit.getPlayer(playerToTeleport).getLocation().getY(), Bukkit.getPlayer(playerToTeleport).getLocation().getZ(), Bukkit.getPlayer(playerToTeleport).getLocation().getYaw(), Bukkit.getPlayer(playerToTeleport).getLocation().getPitch());
+						BackFunctions.setBack(Bukkit.getPlayer(playerToTeleport).getUniqueId().toString(), BungeeUtilCompanion.getServerName(), Bukkit.getPlayer(playerToTeleport).getWorld().getName(), Bukkit.getPlayer(playerToTeleport).getLocation().getX(), Bukkit.getPlayer(playerToTeleport).getLocation().getY(), Bukkit.getPlayer(playerToTeleport).getLocation().getZ(), Bukkit.getPlayer(playerToTeleport).getLocation().getYaw(), Bukkit.getPlayer(playerToTeleport).getLocation().getPitch());
 						Bukkit.getPlayer(playerToTeleport).teleport(Bukkit.getPlayer(playerToTeleportTo));
 						p.sendMessage("§6Teleporting...");
 					} else {
@@ -89,7 +89,7 @@ public class TPCommand implements CommandExecutor {
 					String playerToTeleportServer = BungeeUtilCompanion.playerList.get(playerToTeleport);
 					String serverToTeleportTo = BungeeUtilCompanion.playerList.get(playerToTeleportTo);
 					if (playerToTeleportServer.equals(serverToTeleportTo)) {
-						BackFunctions.setBack(Bukkit.getPlayer(playerToTeleport).getName(), BungeeUtilCompanion.getServerName(), Bukkit.getPlayer(playerToTeleport).getWorld().getName(), Bukkit.getPlayer(playerToTeleport).getLocation().getX(), Bukkit.getPlayer(playerToTeleport).getLocation().getY(), Bukkit.getPlayer(playerToTeleport).getLocation().getZ(), Bukkit.getPlayer(playerToTeleport).getLocation().getYaw(), Bukkit.getPlayer(playerToTeleport).getLocation().getPitch());
+						BackFunctions.setBack(Bukkit.getPlayer(playerToTeleport).getUniqueId().toString(), BungeeUtilCompanion.getServerName(), Bukkit.getPlayer(playerToTeleport).getWorld().getName(), Bukkit.getPlayer(playerToTeleport).getLocation().getX(), Bukkit.getPlayer(playerToTeleport).getLocation().getY(), Bukkit.getPlayer(playerToTeleport).getLocation().getZ(), Bukkit.getPlayer(playerToTeleport).getLocation().getYaw(), Bukkit.getPlayer(playerToTeleport).getLocation().getPitch());
 						Bukkit.getPlayer(playerToTeleport).teleport(Bukkit.getPlayer(playerToTeleportTo));
 						p.sendMessage("§6Teleporting...");
 					} else {

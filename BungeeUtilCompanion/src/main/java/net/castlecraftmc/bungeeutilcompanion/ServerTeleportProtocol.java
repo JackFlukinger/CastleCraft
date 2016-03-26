@@ -23,8 +23,8 @@ import com.google.common.io.ByteStreams;
 public class ServerTeleportProtocol {
 	
 	public static void teleportPlayer(Player p, String server, String location) {
-		BackFunctions.setBack(p.getName(), BungeeUtilCompanion.getServerName(), p.getWorld().getName(), p.getLocation().getX(), p.getLocation().getY(), p.getLocation().getZ(), p.getLocation().getYaw(), p.getLocation().getPitch());
-		sendPreTeleportInfo(p, server, location);
+		BackFunctions.setBack(p.getUniqueId().toString(), BungeeUtilCompanion.getServerName(), p.getWorld().getName(), p.getLocation().getX(), p.getLocation().getY(), p.getLocation().getZ(), p.getLocation().getYaw(), p.getLocation().getPitch());
+		sendPreTeleportInfo(p.getName(), server, location);
 		callTeleport(p.getName(), server);
 	}
 	
@@ -40,10 +40,10 @@ public class ServerTeleportProtocol {
 		callTeleport(playerToTeleport, BungeeUtilCompanion.playerList.get(playerToTeleportTo));
 	}
 	
-	public static void sendPreTeleportInfo(Player p, String server, String location) {
+	public static void sendPreTeleportInfo(String player, String server, String location) {
 		Data message = new Data();
 		message.addString("server", server);
-		message.addString("player", p.getName());
+		message.addString("player", player);
 		message.addString("location", location);
 		SocketAPI.sendDataToServer("TeleportProtocol", message);
 	}

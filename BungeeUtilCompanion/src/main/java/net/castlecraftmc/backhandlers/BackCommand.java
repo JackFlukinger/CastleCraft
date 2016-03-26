@@ -18,7 +18,7 @@ public class BackCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, final String[] args) {
 		if (cmd.getName().equalsIgnoreCase("back") && sender instanceof Player && sender.hasPermission("bungeeutil.back")) {
 			Player p = (Player) sender;
-			HashMap<String,String> backSet = BackFunctions.getBack(p.getName());
+			HashMap<String,String> backSet = BackFunctions.getBack(p.getUniqueId().toString());
 			if (backSet.isEmpty()) {
 				p.sendMessage("§6There is no saved location to teleport you to.");
 				return true;
@@ -33,7 +33,7 @@ public class BackCommand implements CommandExecutor {
 			String location = world + "," + x + "," + y + "," + z + "," + yaw + "," + pitch;
 			if (BungeeUtilCompanion.getServerName().equals(server)) {
 				Location locToTeleportTo = new Location(Bukkit.getWorld(world), Double.parseDouble(x), Double.parseDouble(y), Double.parseDouble(z), Float.parseFloat(yaw), Float.parseFloat(pitch));
-				BackFunctions.setBack(p.getName(), BungeeUtilCompanion.getServerName(), p.getWorld().getName(), p.getLocation().getX(), p.getLocation().getY(), p.getLocation().getZ(), p.getLocation().getYaw(), p.getLocation().getPitch());
+				BackFunctions.setBack(p.getUniqueId().toString(), BungeeUtilCompanion.getServerName(), p.getWorld().getName(), p.getLocation().getX(), p.getLocation().getY(), p.getLocation().getZ(), p.getLocation().getYaw(), p.getLocation().getPitch());
 				p.teleport(locToTeleportTo);
 				p.sendMessage("§6Teleporting...");
 			} else {

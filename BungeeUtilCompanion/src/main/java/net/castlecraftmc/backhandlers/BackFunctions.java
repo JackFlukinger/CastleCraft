@@ -17,51 +17,46 @@ public class BackFunctions {
 	
     public static void createBackTable() {
     	try {
-			BungeeUtilCompanion.c.createStatement().execute("CREATE TABLE IF NOT EXISTS `BackCache` (`username` VARCHAR(32), `server` VARCHAR(32), `world` VARCHAR(32), `x` DOUBLE PRECISION, `y` DOUBLE PRECISION, `z` DOUBLE PRECISION, `yaw` FLOAT, `pitch` FLOAT, PRIMARY KEY (`username`))");
+			BungeeUtilCompanion.c.createStatement().execute("CREATE TABLE IF NOT EXISTS `BackCache` (`uuid` VARCHAR(36), `server` VARCHAR(32), `world` VARCHAR(32), `x` DOUBLE PRECISION, `y` DOUBLE PRECISION, `z` DOUBLE PRECISION, `yaw` FLOAT, `pitch` FLOAT, PRIMARY KEY (`uuid`))");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
     }
-    
-    public static void setBack(final String username, final String server, final String world, final double x, final double y, final double z, final Float yaw, final Float pitch) {
-    	Bukkit.getScheduler().runTaskAsynchronously(BungeeUtilCompanion.getPlugin(), new Runnable() {
-    		public void run() { 
-    			try {
-    				PreparedStatement statement = BungeeUtilCompanion.c.prepareStatement("INSERT INTO `BackCache` (`username`, `server`, `world`, `x`, `y`, `z`, `yaw`, `pitch`) VALUE (?, ?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE `username`=VALUES(`username`),`server`=VALUES(`server`),`world`=VALUES(`world`),`x`=VALUES(`x`),`y`=VALUES(`y`),`z`=VALUES(`z`),`yaw`=VALUES(`yaw`),`pitch`=VALUES(`pitch`)");
-    				statement.setString(1, username);
-    				statement.setString(2, server);
-    				statement.setString(3, world);
-    				statement.setDouble(4, x);
-    				statement.setDouble(5, y);
-    				statement.setDouble(6, z);
-    				statement.setFloat(7, yaw);
-    				statement.setFloat(8, pitch);
-    				statement.execute();
-    				statement.close();
 
-    			} catch (SQLException e) {
-    				e.printStackTrace();
-    			}
-    		}
-    	});
+    public static void setBack(final String uuid, final String server, final String world, final double x, final double y, final double z, final Float yaw, final Float pitch) {
+    	try {
+    		PreparedStatement statement = BungeeUtilCompanion.c.prepareStatement("INSERT INTO `BackCache` (`uuid`, `server`, `world`, `x`, `y`, `z`, `yaw`, `pitch`) VALUE (?, ?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE `uuid`=VALUES(`uuid`),`server`=VALUES(`server`),`world`=VALUES(`world`),`x`=VALUES(`x`),`y`=VALUES(`y`),`z`=VALUES(`z`),`yaw`=VALUES(`yaw`),`pitch`=VALUES(`pitch`)");
+    		statement.setString(1, uuid);
+    		statement.setString(2, server);
+    		statement.setString(3, world);
+    		statement.setDouble(4, x);
+    		statement.setDouble(5, y);
+    		statement.setDouble(6, z);
+    		statement.setFloat(7, yaw);
+    		statement.setFloat(8, pitch);
+    		statement.execute();
+    		statement.close();
+
+    	} catch (SQLException e) {
+    		e.printStackTrace();
+    	}
     }
     
-    public static void sendSetBackMessage(String username) {
+    public static void sendSetBackMessage(String uuid) {
 		Data message = new Data();
-		message.addString("username", username);
+		message.addString("uuid", uuid);
 		SocketAPI.sendDataToServer("setBack", message);
 
     }
     
-    public static HashMap<String, String> getBack(String username) {
+    public static HashMap<String, String> getBack(String uuid) {
     	HashMap<String,String> backLocation = new HashMap<String,String>();
     	PreparedStatement statement = null;
 		try {
-			statement = BungeeUtilCompanion.c.prepareStatement("SELECT * FROM `BackCache` WHERE `username`=?;");
-			statement.setString(1, username);
+			statement = BungeeUtilCompanion.c.prepareStatement("SELECT * FROM `BackCache` WHERE `uuid`=?;");
+			statement.setString(1, uuid);
 			ResultSet backsToParse = statement.executeQuery();
 			while (backsToParse.next()) {
-				String name = backsToParse.getString(1);
 				String server = backsToParse.getString(2);
 				String world = backsToParse.getString(3);
 				double x = backsToParse.getDouble(4);

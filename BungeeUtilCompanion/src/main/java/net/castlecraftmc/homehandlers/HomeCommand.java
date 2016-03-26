@@ -1,5 +1,8 @@
 package net.castlecraftmc.homehandlers;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -14,6 +17,8 @@ import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.InvalidConfigurationException;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 public class HomeCommand implements CommandExecutor {
@@ -36,7 +41,7 @@ public class HomeCommand implements CommandExecutor {
 					String location = world + "," + x + "," + y + "," + z + "," + yaw + "," + pitch;
     				if (BungeeUtilCompanion.getServerName().equals(server)) {
     					Location locToTeleportTo = new Location(Bukkit.getWorld(world), Double.parseDouble(x), Double.parseDouble(y), Double.parseDouble(z), Float.parseFloat(yaw), Float.parseFloat(pitch));
-    					BackFunctions.setBack(p.getName(), BungeeUtilCompanion.getServerName(), p.getWorld().getName(), p.getLocation().getX(), p.getLocation().getY(), p.getLocation().getZ(), p.getLocation().getYaw(), p.getLocation().getPitch());
+    					BackFunctions.setBack(p.getUniqueId().toString(), BungeeUtilCompanion.getServerName(), p.getWorld().getName(), p.getLocation().getX(), p.getLocation().getY(), p.getLocation().getZ(), p.getLocation().getYaw(), p.getLocation().getPitch());
     					p.teleport(locToTeleportTo);
     					p.sendMessage("§6Teleporting...");
     					return true;
@@ -61,21 +66,34 @@ public class HomeCommand implements CommandExecutor {
     			p.sendMessage("§6Correct usage is §c/home <home>§6.");
     		}
     		return true;
-		} else if (cmd.getName().equalsIgnoreCase("delhome") && sender instanceof Player && sender.hasPermission("bungeeutil.delhome")) {
-			if (args.length == 1) {
-					Player p = (Player) sender;
-					String uuid = p.getUniqueId().toString();
-				if (HomeFunctions.hasHome(uuid, args[0])) {
-					HomeFunctions.delHome(uuid, args[0]);
-					p.sendMessage("§6Home §c" + args[0] + " §6deleted.");
-					return true;
-				} else {
-					p.sendMessage("§6You don't have a home named §c" + args[0] + "§6.");
-				}
-			} else {
-				sender.sendMessage("§6Correct usage is /delhome <home>.");
+    		//In case I need to convert homes from essentials files again.
+		} /*else if (cmd.getName().equalsIgnoreCase("converthomes") && sender instanceof Player && sender.hasPermission("bungeeutil.converthomes")) {
+			YamlConfiguration config = new YamlConfiguration();
+			File[] files = new File("/home/minecraft/multicraft/servers/server1/plugins/Essentials/userdata").listFiles();;
+			for(File file : files){
+			    try {
+			        config.load(file);
+			        if(config.contains("homes")){
+			            for(String key : config.getConfigurationSection("homes").getKeys(false)) {
+			            	String home = key;
+			            	String world = config.getString("homes." + key + ".world");
+			            	String x = config.getString("homes." + key + ".x");
+			            	String y = config.getString("homes." + key + ".y");
+			            	String z = config.getString("homes." + key + ".z");
+			            	String yaw = config.getString("homes." + key + ".yaw");
+			            	String pitch = config.getString("homes." + key + ".pitch");
+			            	HomeFunctions.setHome(file.getName().split("\\.")[0], home, "main", world, Double.parseDouble(x), Double.parseDouble(y), Double.parseDouble(z), Float.parseFloat(yaw), Float.parseFloat(pitch));
+			            }
+			        }
+			    } catch (FileNotFoundException e) {
+			        e.printStackTrace();
+			    } catch (IOException e) {
+			        e.printStackTrace();
+			    } catch (InvalidConfigurationException e) {
+			        e.printStackTrace();
+			    }
 			}
-		}
+		}*/
     	return true;
     }
 

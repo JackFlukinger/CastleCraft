@@ -26,34 +26,30 @@ public class HomeFunctions {
 
 	public static void createHomeTable() {
 		try {
-			BungeeUtilCompanion.c.createStatement().execute("CREATE TABLE IF NOT EXISTS `Homes` (`uuid` VARCHAR(50), `home` VARCHAR(32), `server` VARCHAR(32), `world` VARCHAR(32), `x` DOUBLE PRECISION, `y` DOUBLE PRECISION, `z` DOUBLE PRECISION, `yaw` FLOAT, `pitch` FLOAT);");
+			BungeeUtilCompanion.c.createStatement().execute("CREATE TABLE IF NOT EXISTS `Homes` (`uuid` VARCHAR(36), `home` VARCHAR(32), `server` VARCHAR(32), `world` VARCHAR(32), `x` DOUBLE PRECISION, `y` DOUBLE PRECISION, `z` DOUBLE PRECISION, `yaw` FLOAT, `pitch` FLOAT);");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
 	public static void setHome(final String uuid, final String home, final String server, final String world, final double x, final double y, final double z, final Float yaw, final Float pitch) {
-    	Bukkit.getScheduler().runTaskAsynchronously(BungeeUtilCompanion.getPlugin(), new Runnable() {
-    		public void run() {
-    			try {
-    				PreparedStatement statement = BungeeUtilCompanion.c.prepareStatement("INSERT INTO `Homes` (`uuid`, `home`, `server`, `world`, `x`, `y`, `z`, `yaw`, `pitch`) VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?);");
-    				statement.setString(1, uuid);
-    				statement.setString(2, home);
-    				statement.setString(3, server);
-    				statement.setString(4, world);
-    				statement.setDouble(5, x);
-    				statement.setDouble(6, y);
-    				statement.setDouble(7, z);
-    				statement.setFloat(8, yaw);
-    				statement.setFloat(9, pitch);
-    				statement.execute();
-    				statement.close();
+		try {
+			PreparedStatement statement = BungeeUtilCompanion.c.prepareStatement("INSERT INTO `Homes` (`uuid`, `home`, `server`, `world`, `x`, `y`, `z`, `yaw`, `pitch`) VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?);");
+			statement.setString(1, uuid);
+			statement.setString(2, home);
+			statement.setString(3, server);
+			statement.setString(4, world);
+			statement.setDouble(5, x);
+			statement.setDouble(6, y);
+			statement.setDouble(7, z);
+			statement.setFloat(8, yaw);
+			statement.setFloat(9, pitch);
+			statement.execute();
+			statement.close();
 
-    			} catch (SQLException e) {
-    				e.printStackTrace();
-    			}
-    		}
-    	});
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public static boolean hasHome(String uuid, String home) {

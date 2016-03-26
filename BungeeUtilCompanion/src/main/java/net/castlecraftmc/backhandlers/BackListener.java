@@ -13,11 +13,11 @@ import org.bukkit.event.Listener;
 public class BackListener implements Listener {
 	
 	@EventHandler
-	public static void receivePlayerList(ReceivedDataEvent e) {
+	public static void recieveSetBack(ReceivedDataEvent e) {
 		if (e.getChannel().equals("setBack")) {
-			String username = e.getData().getString("username");
-			Player p = Bukkit.getPlayer(username);
-			BackFunctions.setBack(username, BungeeUtilCompanion.getServerName(), p.getWorld().getName(), p.getLocation().getX(),  p.getLocation().getY(),  p.getLocation().getZ(),  p.getLocation().getYaw(),  p.getLocation().getPitch());
+			String uuid = e.getData().getString("uuid");
+			Player p = Bukkit.getPlayer(uuid);
+			BackFunctions.setBack(uuid, BungeeUtilCompanion.getServerName(), p.getWorld().getName(), p.getLocation().getX(),  p.getLocation().getY(),  p.getLocation().getZ(),  p.getLocation().getYaw(),  p.getLocation().getPitch());
 		}
 	}
 }

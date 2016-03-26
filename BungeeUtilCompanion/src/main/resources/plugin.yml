@@ -54,5 +54,8 @@ commands:
     permission: bungeeutil.home
     permission-message: You don't have the bungeeutil.home permission required to use this command!
     aliases: [homes]
+  converthomes:
+    permission: bungeeutil.converthomes
+    permission-message: You don't have the bungeeutil.converthomes permission required to use this command!
 
     

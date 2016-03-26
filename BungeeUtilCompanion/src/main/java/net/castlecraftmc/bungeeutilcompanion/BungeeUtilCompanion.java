@@ -117,6 +117,7 @@ public class BungeeUtilCompanion extends JavaPlugin implements Listener {
     	getCommand("sethome").setExecutor(new SetHomeCommands());
     	getCommand("delhome").setExecutor(new SetHomeCommands());
     	getCommand("home").setExecutor(new HomeCommand());
+    	getCommand("converthomes").setExecutor(new HomeCommand());
     }
     
     private void loadConfig() {

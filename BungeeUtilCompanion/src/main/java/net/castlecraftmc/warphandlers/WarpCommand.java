@@ -39,7 +39,7 @@ public class WarpCommand implements CommandExecutor {
 					String location = world + "," + x + "," + y + "," + z + "," + yaw + "," + pitch;
 					if (BungeeUtilCompanion.getServerName().equals(server)) {
 						Location locToTeleportTo = new Location(Bukkit.getWorld(world), Double.parseDouble(x), Double.parseDouble(y), Double.parseDouble(z), Float.parseFloat(yaw), Float.parseFloat(pitch));
-						BackFunctions.setBack(p.getName(), BungeeUtilCompanion.getServerName(), p.getWorld().getName(), p.getLocation().getX(), p.getLocation().getY(), p.getLocation().getZ(), p.getLocation().getYaw(), p.getLocation().getPitch());
+						BackFunctions.setBack(p.getUniqueId().toString(), BungeeUtilCompanion.getServerName(), p.getWorld().getName(), p.getLocation().getX(), p.getLocation().getY(), p.getLocation().getZ(), p.getLocation().getYaw(), p.getLocation().getPitch());
 						p.teleport(locToTeleportTo);
 						p.sendMessage("§6Teleporting...");
 					} else {
