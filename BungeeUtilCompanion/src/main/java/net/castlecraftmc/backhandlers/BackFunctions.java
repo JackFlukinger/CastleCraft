@@ -46,6 +46,13 @@ public class BackFunctions {
     	});
     }
     
+    public static void sendSetBackMessage(String username) {
+		Data message = new Data();
+		message.addString("username", username);
+		SocketAPI.sendDataToServer("setBack", message);
+
+    }
+    
     public static HashMap<String, String> getBack(String username) {
     	HashMap<String,String> backLocation = new HashMap<String,String>();
     	PreparedStatement statement = null;

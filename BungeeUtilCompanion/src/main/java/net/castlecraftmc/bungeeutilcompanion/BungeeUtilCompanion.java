@@ -16,6 +16,13 @@ import java.util.Map;
 
 import net.castlecraftmc.backhandlers.BackCommand;
 import net.castlecraftmc.backhandlers.BackFunctions;
+import net.castlecraftmc.backhandlers.BackListener;
+import net.castlecraftmc.delayedcommands.DelayedCommands;
+import net.castlecraftmc.delayedcommands.DelayedCommandsListener;
+import net.castlecraftmc.homehandlers.HomeCommand;
+import net.castlecraftmc.homehandlers.HomeFunctions;
+import net.castlecraftmc.homehandlers.HomesListener;
+import net.castlecraftmc.homehandlers.SetHomeCommands;
 import net.castlecraftmc.spawnhandlers.SetSpawnCommands;
 import net.castlecraftmc.spawnhandlers.SpawnCommand;
 import net.castlecraftmc.spawnhandlers.SpawnFunctions;
@@ -42,6 +49,9 @@ public class BungeeUtilCompanion extends JavaPlugin implements Listener {
 	public static HashMap<String, Map<String,String>> spawnCache = new HashMap<String, Map<String,String>>();
 	public static HashMap<String, Map<String,String>> warpCache = new HashMap<String, Map<String,String>>();
 	public static HashMap<String,String> playerList = new HashMap<String,String>();
+	public static HashMap<String,String> tpRequestsCache = new HashMap<String,String>();
+	public static HashMap<String,String> delayCache = new HashMap<String,String>();
+	public static HashMap<String, HashMap<String,String>> delayedCommands = new HashMap<String, HashMap<String,String>>();
 	private static Plugin plugin;
 	public static Connection c;
 	PluginManager pm;
@@ -61,6 +71,7 @@ public class BungeeUtilCompanion extends JavaPlugin implements Listener {
 		SpawnFunctions.createSpawnTable();
 		WarpFunctions.createWarpTable();
 		BackFunctions.createBackTable();
+		HomeFunctions.createHomeTable();
 		loadSpawns();
 		loadWarps();
     }
@@ -84,6 +95,9 @@ public class BungeeUtilCompanion extends JavaPlugin implements Listener {
     	pm.registerEvents(new WarpsListener(), this);
     	pm.registerEvents(new GetPlayerList(), this);
     	pm.registerEvents(new TPListener(), this);
+    	pm.registerEvents(new BackListener(), this);
+    	pm.registerEvents(new DelayedCommandsListener(), this);
+    	pm.registerEvents(new HomesListener(), this);
 
     }
    
@@ -96,10 +110,13 @@ public class BungeeUtilCompanion extends JavaPlugin implements Listener {
     	getCommand("delwarp").setExecutor(new SetWarpCommands());
     	getCommand("back").setExecutor(new BackCommand());
     	getCommand("tpa").setExecutor(new TPCommand());
-    	getCommand("tpahere").setExecutor(new TPCommand());
     	getCommand("tp").setExecutor(new TPCommand());
     	getCommand("tphere").setExecutor(new TPCommand());
     	getCommand("tpaccept").setExecutor(new TPCommand());
+    	getCommand("delcommand").setExecutor(new DelayedCommands());
+    	getCommand("sethome").setExecutor(new SetHomeCommands());
+    	getCommand("delhome").setExecutor(new SetHomeCommands());
+    	getCommand("home").setExecutor(new HomeCommand());
     }
     
     private void loadConfig() {
@@ -111,6 +128,12 @@ public class BungeeUtilCompanion extends JavaPlugin implements Listener {
 		MysqlInfo.put("database", getConfig().getString("MySQL.Database"));
 		MysqlInfo.put("port", getConfig().getString("MySQL.Port"));
 		MysqlInfo.put("host", getConfig().getString("MySQL.Host"));
+		for (String key : getConfig().getConfigurationSection("DelayedCommands").getKeys(false)) {
+			HashMap<String,String> commandValues = new HashMap<String,String>();
+			commandValues.put("server", getConfig().getString("DelayedCommands." + key + ".server"));
+			commandValues.put("command", getConfig().getString("DelayedCommands." + key + ".command"));
+			delayedCommands.put(key, commandValues);
+		}
     }
     
     public static void loadSpawns() {

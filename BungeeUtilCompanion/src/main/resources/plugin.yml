@@ -29,15 +29,30 @@ commands:
   tpa:
     permission: bungeeutil.tpa
     permission-message: You don't have the bungeeutil.tpa permission required to use this command!
-  tpahere:
-    permission: bungeeutil.tpahere
-    permission-message: You don't have the bungeeutil.tpahere permission required to use this command!
+    aliases: [tpr, teleportrequest]
   tp:
     permission: bungeeutil.tp
     permission-message: You don't have the bungeeutil.tp permission required to use this command!
+    aliases: [teleport]
   tphere:
     permission: bungeeutil.tphere
     permission-message: You don't have the bungeeutil.tphere permission required to use this command!
+    aliases: [teleporthere]
   tpaccept:
     permission: bungeeutil.tpaccept
     permission-message: You don't have the bungeeutil.tpaccept permission required to use this command!
+  delcommand:
+    permission: bungeeutil.delcommand
+    permission-message: You don't have the bungeeutil.delcommand permission required to use this command!
+  sethome:
+    permission: bungeeutil.sethome
+    permission-message: You don't have the bungeeutil.sethome permission required to use this command!
+  delhome:
+    permission: bungeeutil.delhome
+    permission-message: You don't have the bungeeutil.delhome permission required to use this command!
+  home:
+    permission: bungeeutil.home
+    permission-message: You don't have the bungeeutil.home permission required to use this command!
+    aliases: [homes]
+
+    

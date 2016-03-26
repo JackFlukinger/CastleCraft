@@ -5,6 +5,7 @@ import java.util.Map;
 import net.castlecraftmc.backhandlers.BackFunctions;
 import net.castlecraftmc.bungeeutilcompanion.BungeeUtilCompanion;
 import net.castlecraftmc.bungeeutilcompanion.ServerTeleportProtocol;
+import net.castlecraftmc.bungeeutilcompanion.Util;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -50,16 +51,10 @@ public class WarpCommand implements CommandExecutor {
 				}
 			} else {
     			String warpList = new String();
-    			for (String name : BungeeUtilCompanion.warpCache.keySet()) {
-    				warpList = warpList + ", " + name;
-    			}
-				if (warpList.startsWith(", ")) {
-					warpList = warpList.substring(2);
-				}
+    			warpList = Util.join(BungeeUtilCompanion.warpCache.keySet(), ", ");
 				sender.sendMessage("§6Warps: §c" + warpList);
 			}
 		}
 		return true;
 	}
-    
 }

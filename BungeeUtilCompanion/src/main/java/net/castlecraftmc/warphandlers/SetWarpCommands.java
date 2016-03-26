@@ -24,7 +24,7 @@ public class SetWarpCommands implements CommandExecutor {
     			final Float yaw = p.getLocation().getYaw();
     			final Float pitch = p.getLocation().getPitch();
     			WarpFunctions.setWarp(name, server, world, x, y, z, yaw, pitch);
-    			p.sendMessage("§6Warp " + name + " set.");
+    			p.sendMessage("§6Warp §c" + name + " §6set.");
     			return true;
     		} else {
 				sender.sendMessage("§6Correct usage is /setwarp <warp>.");
