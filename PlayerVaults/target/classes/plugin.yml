@@ -8,6 +8,4 @@ commands:
     permission: playervaults.convertvaults
     permission-message: You don't have the playervaults.convertvaults permission required to use this command!
   playervaults:
-    permission: playervaults.playervaults
-    permission-message: You don't have the playervaults.playervaults permission required to use this command!
     aliases: [playervault, evault, pv, vault]

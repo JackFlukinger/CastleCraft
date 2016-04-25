@@ -23,7 +23,7 @@ public class PlayerVaultsCommand implements CommandExecutor {
 					int vaultNum = Integer.parseInt(args[0]);
 					PlayerVaultsFunctions.openVault(p, vaultNum);
 				} else {
-					p.sendMessage("§6You don't that vault!");
+					p.sendMessage("§6You don't have that vault!");
 				}
 			} else {
 				p.sendMessage("§6Correct usage is §c/pv <vault number>§6.");
