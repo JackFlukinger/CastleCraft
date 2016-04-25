@@ -1,0 +1,13 @@
+name: PlayerVaults
+main: net.castlecraftmc.playervaults.PlayerVaults
+version: 1.0
+author: Frozen_Thunder
+website: http://castlecraftmc.net
+commands:
+  convertvaults:
+    permission: playervaults.convertvaults
+    permission-message: You don't have the playervaults.convertvaults permission required to use this command!
+  playervaults:
+    permission: playervaults.playervaults
+    permission-message: You don't have the playervaults.playervaults permission required to use this command!
+    aliases: [playervault, evault, pv, vault]
